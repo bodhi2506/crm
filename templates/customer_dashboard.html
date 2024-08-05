@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Customer Dashboard</h2>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.ProductName }}</h5>
+                <p class="card-text">{{ product.ProductDescription }}</p>
+                <p class="card-text">Price: ${{ product.Price }}</p>
+                <form action="{{ url_for('purchase_product', product_id=product.ProductID) }}" method="POST">
+                    <button type="submit" class="btn btn-primary">Buy</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h3>Your Orders</h3>
+<div class="mt-4">
+    <h5>Order List</h5>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.OrderID }}</td>
+                <td>{{ order.OrderDate }}</td>
+                <td>{{ order.Status }}</td>
+                <td>{{ order.TotalAmount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
